@@ -1,0 +1,10 @@
+*.doc
+*.docx
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.csv
+*.gif
+DataRecovery/*
+*correctionInfo*
