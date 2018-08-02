@@ -34,8 +34,8 @@ session_start();
   // These numbers of stimuli will be drawn from the directory for each set.
   var numPrimeToDraw = 0; // if equal to 0 or less, then all primes in the prime directory are used
   var numTargetToDraw = 0; // if equal to 0 or less, then all targets in the target directory are used
-  var timing_parameters = [400, 200, 200, 300];
-  var imageSize = [250, 250]; var primeImgSize = [179, 250];
+  var timing_parameters = [400, 200, 200, 500];
+  var imageSize = [300, 300]; var primeImgSize = [214, 299];
   var breakTrials = [25, 75, 150];
   //var primeSize = [imageSize[1] / 1.4, imageSize[1]];
 
@@ -294,8 +294,6 @@ session_start();
   // targets:
   target1Fls = <?php echo json_encode(glob('../Resources/GrayGuns/*.png')); ?>;
   target2Fls = <?php echo json_encode(glob('../Resources/GrayNonguns/*.png')); ?>;
-  //allTargetFls = target1Fls.concat(target2Fls);
-  // TODO: Change the background of the target objects to alpha channel
 
   // Put the stimuli in lists with the relevant information.
 
@@ -376,7 +374,7 @@ session_start();
 
   mask = "MaskReal.png";
   fixCross = "FixationCross380x380.png";
-  redX = "XwithSpacebarMsg.png";
+  redX = "XReal.png";
   check = "CheckReal.png";
   tooSlow = "TooSlow.png";
 
@@ -394,7 +392,7 @@ session_start();
     response_window: [timing_parameters[0] + timing_parameters[1], Infinity],
     feedback: true,
     key_to_advance: 32,
-    //feedback_duration: 1000, // Only activate these if the check should show.
+    feedback_duration: 1000, // Only activate these if the check should show.
     //correct_feedback: check,
     incorrect_feedback: redX,
     timeout_feedback: tooSlow,
@@ -479,10 +477,10 @@ session_start();
     }
   }
   imgNamesArr = imgArr.concat([
-    ['TooSlow.png', [250,250]],
-    ['XwithSpacebarMsg.png', [188, 250]],
-    ['MaskReal.png', [250, 250]],
-    ['FixationCross380x380.png', [250, 250]]
+    ['TooSlow.png', [158,298]],
+    ['XReal.png', [213, 298]],
+    ['MaskReal.png', [300, 300]],
+    ['FixationCross380x380.png', [300, 300]]
   ]);
   window.allWITImages = new Array();
   var allWITImages = preloadResizedImages(imgNamesArr);

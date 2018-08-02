@@ -86,9 +86,27 @@ input[type="text"] {
 /* Container holding jsPsych content */
 
 .jspsych-display-element {
-  width: 1260px;
-  margin: 15px auto 15px auto;
-}
+   display: flex;
+   flex-direction: column;
+   overflow-y: auto;
+ }
+
+ .jspsych-display-element:focus {
+   outline: none;
+ }
+
+ .jspsych-content-wrapper {
+   display: flex;
+   margin: auto;
+   flex: 1 1 100%;
+   width: 100%;
+ }
+
+ .jspsych-content {
+   max-width: 95%; /* this is mainly an IE 10-11 fix */
+   text-align: center;
+   margin: auto; /* this is for overflowing content */
+ }
 
 /* jsPsych progress bar */
 
@@ -184,8 +202,8 @@ input[type="text"] {
   display: block;
   margin: auto;
   margin-top: auto;
-  line-height: 250px;
-  height: 250px;
+  line-height: 300px;
+  height: 300px;
 }
 
 /* for countdowns */

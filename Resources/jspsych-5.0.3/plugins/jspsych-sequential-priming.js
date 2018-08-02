@@ -115,15 +115,18 @@ jsPsych.plugins["sequential-priming"] = (function() {
     var show_feedback = function() {
       if (trial.feedback) {
         feedbackShown = true;
+        var isTO = false;
         // clear timeout handlers and the display
         clearTimeoutHandlers();
         display_element.html('');
 
         if (rt > trial.timing_response || typeof rt === 'undefined') {
           feedback_stimulus = trial.timeout_feedback;
+          isTO = true;
         } else {
           feedback_stimulus = correct ? trial.correct_feedback : trial.incorrect_feedback;
         }
+
         if (!trial.feedback_is_html) {
           display_element.append($('<img>', {
             src: feedback_stimulus,
@@ -143,7 +146,7 @@ jsPsych.plugins["sequential-priming"] = (function() {
         // If a keypress to advance on incorrect is set, AND we are wrong or
         // timed out, then wait for a key. Otherwise, just advance after the
         // feedback time limit.
-        var needKeyPress = typeof trial.key_to_advance !== 'undefined' && ! (correct == true);
+        var needKeyPress = typeof trial.key_to_advance !== 'undefined' && isTO;
         if (needKeyPress) {
           //jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
           fbKeyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
@@ -153,9 +156,13 @@ jsPsych.plugins["sequential-priming"] = (function() {
             persist: true,
             allow_held_key: false
           });
-        } else {
+        } else if (typeof feedback_stimulus != 'undefined') {
+          // delay the advance of trial for feedback only if something is
+          // actually defined to be shown.
           var t3 = setTimeout(end_trial, trial.feedback_duration);
           setTimeoutHandlers.push(t3);
+        } else {
+          end_trial();
         }
       } else {
         end_trial();
@@ -267,7 +274,7 @@ jsPsych.plugins["sequential-priming"] = (function() {
           id: 'jspsych-sequential-priming-stimulus',
         }));
       }
-      //debugger;
+
       //show prompt if there is one
       if (trial.prompt !== "") {
         display_element.append(trial.prompt);

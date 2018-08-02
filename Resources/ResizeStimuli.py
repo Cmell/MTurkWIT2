@@ -1,4 +1,4 @@
-"""Process the contrast of the faces, while equating mean luminance."""
+"""Resize stimuli, converting to grayscale if necessary."""
 from PIL import Image
 import glob
 """
@@ -8,19 +8,23 @@ be found other places, and shoudl be recopied if resizing needs to happen again
 
 imNames = []
 dirLst = ['Black', 'White', 'GrayGuns', 'GrayNonguns', '../WIT']
+needsGrayscaled = [True, True, False, False, False]
 
-for dir in dirLst:
+for dirNum in xrange(len(dirLst)):
+    dir = dirLst[dirNum]
     flList = glob.iglob(dir + '/*.png')
     for imName in flList:
         im = Image.open(imName)
-        #alpha = im.split()[-1]
 
-        #im = im.convert('L')
-        #im.putalpha(alpha)
+        if (needsGrayscaled[dirNum]):
+            alpha = im.split()[-1]
+
+            im = im.convert('L')
+            im.putalpha(alpha)
 
         curH = im.height
         curW = im.width
-        newH = 250
+        newH = 300
         newW = int(round(curW * newH / curH))
 
         im.thumbnail(size=(newW, newH))
