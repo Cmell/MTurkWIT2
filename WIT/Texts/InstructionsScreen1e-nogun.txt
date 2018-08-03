@@ -12,5 +12,5 @@ Remember:
 <li>Press <b>"e"</b> for <b>non-guns</b></li>
 </ul>
 <p>
-Press the spacebar to continue.
+Put your fingers on the "e" and "i" keys, and press the spacebar to begin.
 </p>
