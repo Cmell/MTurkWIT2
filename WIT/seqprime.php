@@ -486,7 +486,26 @@ session_start();
   var allWITImages = preloadResizedImages(imgNamesArr);
 
   var goToSurvey = function () {
-    window.location = 'https://cuboulder.qualtrics.com/jfe/form/SV_dbbv8LEpnyd0fzL?pid=' + pid;
+    // First, calculate the accuracy rate.
+    var allData = jsPsych.data.getData();
+    var trialData = allData.filter(
+      function(trial) {
+        return(trial.trial_type == "sequential-priming" && typeof trial.correct != 'undefined');
+      }
+    );
+    var numCorrect = 0;
+    var numTrials = 0;
+    for (t=0; t < trialData.length; t++) {
+      var curTrial = trialData[t];
+      numTrials++;
+      if (curTrial.correct == "true") {
+        numCorrect++;
+      };
+    };
+    var percCorrect = numCorrect / numTrials;
+    var argsToSend = '?pid=' + pid + '&accuracy=' + percCorrect;
+    window.location =
+    'https://cuboulder.qualtrics.com/jfe/form/SV_1YyRlSQMl9CJ3U1' + argsToSend;
   };
 
   var startExperiment = function () {
