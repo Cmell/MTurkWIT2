@@ -11,6 +11,10 @@
 <script>
 document.body.style.backgroundColor = '#d9d9d9';
 //TODO: change the link to the consent form.
+
+<?php
+echo "var mturkid='".$_GET['mturkid']."';";
+ ?>
 var surveyJSON = {
  "title": "Study Introduction",
  "focusFirstQuestionAutomatic": false,
@@ -107,7 +111,7 @@ function endIntro(survey) {
   // Test to make sure we should go on.
   if (survey.data.ConsentQuestion == 'yes' &&
   survey.data.TimeToTakeQuestion == 'participate') {
-    window.location = './WIT/seqprime.php';
+    window.location = './WIT/seqprime.php?mturkid='+mturkid;
   };
 }
 </script>

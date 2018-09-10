@@ -52,9 +52,16 @@ session_start();
 
   // get the pid and condition:
   <?php
+  // Get the mturk id
+  $mturkid = $_GET['mturkid'];
+
   // Get the pid:
-  $pid = getNewPID("../Resources/PID.csv");
+  //$pInfo = [$mturkid];
+  $pid = getNewPID("../Resources/PID.csv", array($mturkid));
+
+  // Echo stuff
   echo "pid = ".$pid.";";
+  echo "var mturkid='".$mturkid."';";
   ?>
 
   var d = new Date();
@@ -70,6 +77,7 @@ session_start();
 
   var fields = [
     "pid",
+    "mturkid",
     "target1_key",
     "target2_key",
     "internal_node_id",
@@ -109,6 +117,7 @@ session_start();
   // trialNum tracking variable (dynamically updated).
   jsPsych.data.addProperties({
     pid: pid,
+    mturkid: mturkid,
     seed: seed,
     target1_key: target1Key,
     target2_key: target2Key,
